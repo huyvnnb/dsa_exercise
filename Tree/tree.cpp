@@ -32,6 +32,30 @@ node *buildTree(node *root){
 	return root;
 }
 
+node *buildTree_iterate(node *root){
+	queue<node *> q;
+	cout << "Enter root data: ";
+	int data; cin >> data;
+	root = new node(data);
+	q.push(root);
+	while(!q.empty()){
+		node *temp = q.front();
+		q.pop();
+		int leftData, rightData;
+		cout << "Enter left data of " << temp->data << " : "; cin >> leftData;
+		cout << "Enter right data of " << temp->data << " : "; cin >> rightData;
+		if(leftData != -1){
+			temp->left = new node(leftData);
+			q.push(temp->left);
+		}
+		if(rightData != -1){
+			temp->right = new node(rightData);
+			q.push(temp->right);
+		}
+	}
+	return root;
+}
+
 void printTree(node *root){
 	//Level order traversal
 	queue<node *> q;
@@ -93,8 +117,8 @@ int main(){
 	node *root = NULL;
 	// 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
 	// 1 2 4 -1 -1 5 -1 -1 3 6 -1 -1 7 -1 -1
-	root = buildTree(root);
+	root = buildTree_iterate(root);
 	cout << "Printing the tree" << endl;
-	printTree3(root);
+	printTree(root);
 	return 0;
 }
